@@ -2,11 +2,11 @@ import type { GatsbyConfig } from "gatsby";
 import dotenv from 'dotenv';
 
 if (process.env.PRODUCTION) {
-  require("dotenv").config({
+  dotenv.config({
     path: `.env.production`,
   })
 } else {
-  require("dotenv").config({
+  dotenv.config({
     path: `.env.${process.env.NODE_ENV}`,
   })
 }
