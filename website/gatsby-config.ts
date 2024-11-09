@@ -1,4 +1,15 @@
 import type { GatsbyConfig } from "gatsby";
+import dotenv from 'dotenv';
+
+if (process.env.PRODUCTION) {
+  require("dotenv").config({
+    path: `.env.production`,
+  })
+} else {
+  require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`,
+  })
+}
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -8,14 +19,17 @@ const config: GatsbyConfig = {
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
-  graphqlTypegen: true,
+  graphqlTypegen: {
+    generateOnBuild: true,
+    typesOutputPath: './src/Types/gatsby-types.d.ts'
+  },
   plugins: [{
     resolve: 'gatsby-source-sanity',
     options: {
-      "projectId": "itpdu479",
-      "dataset": "production"
+      "projectId": process.env.GATSBY_SANITY_PROJECT_ID,
+      "dataset": process.env.GATSBY_SANITY_PROJECT_DATASET
     }
-  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components", "gatsby-plugin-google-gtag", "gatsby-plugin-sitemap", {
+  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-styled-components", "gatsby-plugin-sitemap", {
     resolve: 'gatsby-plugin-manifest',
     options: {
       "icon": "src/images/icon.png"
@@ -34,7 +48,7 @@ const config: GatsbyConfig = {
       "path": "./src/pages/"
     },
     __key: "pages"
-  }]
+  }],
 };
 
 export default config;

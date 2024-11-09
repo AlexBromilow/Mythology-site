@@ -35,6 +35,8 @@
 /website/node_modules/
 /website/.cache/
 /website/public/
-/website/src/gatsby-types.d.ts
+/website/src/Types/gatsby-types.d.ts
 
-*storybook.log
+/website/*storybook.log
+
+/website/.env.*
