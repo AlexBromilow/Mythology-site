@@ -45,6 +45,6 @@ export const query = graphql`
                     gatsbyImageData(width: 300, placeholder: BLURRED, formats: [JPG])
                 }
         }
-        _rawBody
+        _rawBody(resolveReferences: {maxDepth: 10})
     }
 }`

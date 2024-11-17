@@ -1,6 +1,9 @@
 import React, { FunctionComponent } from "react";
+import { BaseReactProps } from "../../../Types/base-props";
+import { PortableText } from "@portabletext/react";
+import RichTextComponents from "./PortableTextComponents";
 
-type RichTextProps = {
+type RichTextProps = BaseReactProps & {
     data: Record<string, unknown> | null | undefined,
 }
 
@@ -21,34 +24,14 @@ const RichText: FunctionComponent<RichTextProps> = ({ data }) => {
     return (
         <>
             {blockList.map(block => {
-                if (block._type === "image") {
-                    return <p key={block._key}>This is an image</p>
-                }
-
-                if (block.style?.startsWith('h')) {
-                    return (
-                        <p key={block._key}>This is a {block.style}</p>
-                    )
-                }
-
-                if (block.listItem) {
-                    return (
-                        <p key={block._key}>This is a list item</p>
-                    )
-                }
 
                 return (
                     <>
-                        {block.children.map(child => <p>{child.text}</p>)}
+                        <PortableText value={block} components={RichTextComponents} />
                     </>
                 )
 
             })}
-            {/* {blockList.map(block => {
-                return (
-                    
-                { block.style?.startsWith('h') &&  }
-            )})} */}
 
 
         </>
